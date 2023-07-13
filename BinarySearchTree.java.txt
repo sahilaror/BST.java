@@ -1,0 +1,181 @@
+AN 1 
+
+class Node{
+    int val;
+    Node left;
+    Node right;
+    Node(int val){
+        this.val=val;
+    }
+}
+
+
+public class practise {
+    public  static void  SearchBinarTree(Node root,int val,int parents)
+    {
+     if (root == null)
+     {
+         return;
+     }
+     if (root.val==val){
+         System.out.println(parents);
+     }
+     else {
+         SearchBinarTree(root.left,val,root.val);
+         SearchBinarTree(root.right,val,root.val);
+     }
+
+    }
+    public static void main(String[] args) {
+        Node root=new Node(15);
+        root.left=new Node(10);
+        root.right=new Node(20);
+        root.left.left=new Node(8);
+        root.left.right=new Node(12);
+        root.right.left=new Node(16);
+        root.right.right=new Node(25);
+
+        int val=25;
+        SearchBinarTree( root,val,-1);
+
+    }
+}
+
+
+ANS 2
+class Node{
+    int val;
+    Node left;
+    Node right;
+    Node(int val){
+        this.val=val;
+    }
+}
+class practise {
+   static int count=0;
+   static int ans=Integer.MIN_VALUE;
+   public static int Answer(Node root,int k){
+       findKLargest(root,k);
+       return ans;
+   }
+       public static void findKLargest(Node root,int k){
+           if (root ==null)   return ;
+            findKLargest(root.right,k);
+           count++;
+           if (count==k) {
+             ans= root.val;
+           }
+           findKLargest(root.left,k);
+        }
+    public static void main(String[] args) {
+        Node root=new Node(15);
+
+        root.left=new Node(10);
+        root.right=new Node(20);
+        root.left.right=new Node(12);
+        root.left.left=new Node(8);
+        root.right.right=new Node(25);
+        root.right.left=new Node(16);
+
+        int k=2;
+        System.out.println(Answer(root,k));
+
+    }
+}
+
+
+
+ANS 3
+import java.util.*;
+class Node{
+    int val;
+    Node left;
+    Node right;
+    Node(int val){
+        this.val=val;
+    }
+}
+
+class practise {
+       public static boolean findpairUtil(Node root, int sum, HashSet<Integer> set){
+           
+            if (root == null) return false;
+
+            if (findpairUtil(root.left, sum, set)) return true;
+
+            if (set.contains(sum - root.val)){
+                System.out.println("Pair is found (" + (sum - root.val) + ", " + root.val + ")");
+                return true;
+            }
+            else set.add(root.val);
+
+            return findpairUtil(root.right, sum, set);
+        }
+
+      public static void findPair(Node root, int sum){
+            HashSet<Integer> set = new HashSet<Integer>();
+            if (!findpairUtil(root, sum, set))
+                System.out.print("Pairs do not exit \n");
+        }
+    public static void main(String[] args) {
+        Node root=new Node(15);
+        root.left=new Node(10);
+        root.right=new Node(20);
+        root.left.left=new Node(8);
+        root.left.right=new Node(12);
+        root.right.left=new Node(16);
+        root.right.right=new Node(25);
+
+        int sum = 28;
+        findPair(root, sum);
+
+    }
+}
+
+ANS  4
+
+
+ANS 5
+class Node{
+    int val;
+    Node left;
+    Node right;
+    Node(int val){
+        this.val=val;
+    }
+}
+class practise {
+       public static Node lowestCommonAncestor(Node root, Node p, Node q){
+           if(root==null){
+               return null;
+           }
+           if(root==p||root==q){
+               return root;
+           }
+           Node left=lowestCommonAncestor(root.left,p,q);
+           Node right=lowestCommonAncestor(root.right,p,q);
+           if(left!=null&&right!=null){
+               return root;
+           }
+           if(left!=null){
+               return left;
+           }
+           else{
+               return right;
+           }
+        }
+    public static void main(String[] args) {
+        Node root=new Node(3);
+        root.left=new Node(5);
+        root.right=new Node(1);
+        root.left.right=new Node(2);
+        root.left.left=new Node(6);
+        root.left.right.left=new Node(7);
+        root.left.right.right=new Node(4);
+        root.right.left=new Node(0);
+        root.right.right=new Node (8);
+        lowestCommonAncestor(root,root.left=new Node(5),root.right=new Node(1));
+    }
+}
+
+
